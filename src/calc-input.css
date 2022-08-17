@@ -1,0 +1,67 @@
+.calc-input {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-areas:
+    "clr udo udo"
+    "div mul min"
+    "sev eig nin"
+    "for fiv six"
+    "one two thr"
+    "pnt zro add";
+}
+
+.calc-input button {
+  margin: 2px;
+}
+
+.clear {
+  grid-area: clr;
+}
+.undo {
+  grid-area: udo;
+}
+.one {
+  grid-area: one;
+}
+.two {
+  grid-area: two;
+}
+.three {
+  grid-area: thr;
+}
+.four {
+  grid-area: for;
+}
+.five {
+  grid-area: fiv;
+}
+.six {
+  grid-area: six;
+}
+.seven {
+  grid-area: sev;
+}
+.eight {
+  grid-area: eig;
+}
+.nine {
+  grid-area: nin;
+}
+.zero {
+  grid-area: zro;
+}
+.point {
+  grid-area: pnt;
+}
+.add {
+  grid-area: add;
+}
+.minus {
+  grid-area: min;
+}
+.divide {
+  grid-area: div;
+}
+.multiply {
+  grid-area: mul;
+}

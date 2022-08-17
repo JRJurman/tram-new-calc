@@ -1,15 +1,44 @@
-import { registerHtml, TramOneComponent } from "tram-one";
-import logo from "@tram-one/tram-logo/dist/element";
+import { registerHtml, TramOneComponent, useEffect } from "tram-one";
+import calcDisplay from "./calc-display";
+import calcInput from "./calc-input";
 import "./app.css";
+import { useCalculatorStore } from "./useCalculatorStore";
 
-const html = registerHtml();
+const html = registerHtml({
+  "calc-display": calcDisplay,
+  "calc-input": calcInput,
+});
 
 const app: TramOneComponent = () => {
+  const {
+    calculatorStore,
+    addDigitToStore,
+    addDecimalPoint,
+    addOperatorToStore,
+  } = useCalculatorStore();
+
+  useEffect(() => {
+    const handleKeyboardInput = (keyEvent: KeyboardEvent) => {
+      console.log(keyEvent.key);
+      if (keyEvent.key.match(/\d/)) {
+        addDigitToStore(keyEvent.key);
+      }
+      if (keyEvent.key === ".") {
+        addDecimalPoint();
+      }
+      if (keyEvent.key.match(/[\+\-\/\*]/)) {
+        addOperatorToStore(keyEvent.key);
+      }
+    };
+    console.log("attach event listener");
+    window.addEventListener("keydown", handleKeyboardInput);
+    return () => window.removeEventListener("keydown", handleKeyboardInput);
+  });
+
   return html`
     <main class="app">
-      ${logo}
-      <p>Update '<code>src/app.js</code>' to see changes!</p>
-      <a href="https://tram-one.io" target="_blank"> Learn Tram-One </a>
+      <calc-display values=${calculatorStore} />
+      <calc-input />
     </main>
   `;
 };
