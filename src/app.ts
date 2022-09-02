@@ -15,6 +15,7 @@ const app: TramOneComponent = () => {
     addDigitToStore,
     addDecimalPoint,
     addOperatorToStore,
+    deleteLastKey,
   } = useCalculatorStore();
 
   useEffect(() => {
@@ -28,6 +29,9 @@ const app: TramOneComponent = () => {
       }
       if (keyEvent.key.match(/[\+\-\/\*]/)) {
         addOperatorToStore(keyEvent.key);
+      }
+      if (keyEvent.key === "Backspace") {
+        deleteLastKey();
       }
     };
     console.log("attach event listener");

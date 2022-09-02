@@ -6,7 +6,7 @@ export const useCalculatorStore = () => {
   // function to handle a digit being pressed
   const addDigitToStore = (newDigit) => {
     const lastValue = calculatorStore.at(-1);
-    const lastValueIsNumber = !isNaN(parseFloat(lastValue || "0"));
+    const lastValueIsNumber = !isNaN(parseFloat(lastValue || ""));
     // if the last value is not a number, push the digit as the start of a new number
     if (!lastValueIsNumber) {
       calculatorStore.push(newDigit);
@@ -34,7 +34,29 @@ export const useCalculatorStore = () => {
 
   // function to handle an operator being pressed
   const addOperatorToStore = (newOperator) => {
-    calculatorStore.push(newOperator);
+    const lastValue = calculatorStore.at(-1);
+    const lastValueIsNumber = !isNaN(parseFloat(lastValue || "0"));
+    if (!lastValueIsNumber) {
+      // if the last value was an operator, change the operator
+      calculatorStore[calculatorStore.length - 1] = newOperator;
+    } else {
+      calculatorStore.push(newOperator);
+    }
+  };
+
+  const deleteLastKey = () => {
+    const lastValue = calculatorStore.at(-1);
+    if (lastValue?.length === 1) {
+      console.log("pop");
+      calculatorStore.pop();
+      console.log([...calculatorStore]);
+    } else {
+      console.log("subtract");
+      calculatorStore[calculatorStore.length - 1] =
+        lastValue?.slice(0, -1) || "";
+      console.log([...calculatorStore]);
+    }
+    222;
   };
 
   return {
@@ -42,5 +64,6 @@ export const useCalculatorStore = () => {
     addDigitToStore,
     addOperatorToStore,
     addDecimalPoint,
+    deleteLastKey,
   };
 };

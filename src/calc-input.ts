@@ -4,6 +4,7 @@ import "./calc-input.css";
 const html = registerHtml();
 
 const calcInput: TramOneComponent = () => {
+  // need to make these buttons send events to the window
   return html`<section class="calc-input">
     <button class="clear">C</button>
     <button class="undo">U</button>
